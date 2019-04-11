@@ -1,0 +1,289 @@
+{include file="qiantai/header"}
+<div class="main">
+    {foreach name="$list" id="li"}
+        <div class="title">{$li.title}</div>
+        <div class="nyr">{$li.puttime|date='Y年m月d日',###}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：{$li.author}</div>
+        <div class="xiahua"></div>
+        <div class="content">{$li.content}<p style="font-size: 13px;font-weight: bold;color:#656565;text-align: right">文章关键词：{$li.typename}</p></div>
+
+    <div class="bfun">
+        <div class="zantong" onclick="zantong({$li.id})"><span class="glyphicon glyphicon-triangle-top"></span>赞同<span id="font">{$li.click}</span></div>&nbsp;&nbsp;
+        <div class="fandui" onclick="fandui({$li.id})"><span class="glyphicon glyphicon-triangle-bottom"></span></div>
+        <div class="pinglun" onclick="pl()"><span class="glyphicon glyphicon-edit"></span>11条评论</div>
+        <div class="fenxiang" onclick="fxs()"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;分享</div>
+    </div>
+
+    <!--分享标签默认隐藏-->
+    <div class="fxs social-share share-component" data-sites="weibo,qq,qzone,tencent">
+        <a class="social-share-icon icon-qzone" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=www.baidu.com" target="_blank">QQ空间</a>
+        <a class="social-share-icon icon-qq" href="http://connect.qq.com/widget/shareqq/index.html?url=www.baidu.com" target="_blank">QQ好友</a>
+        <a class="social-share-icon icon-weibo" href="http://service.weibo.com/share/share.php?url=www.baidu.com" target="_blank">微博</a>
+        <a class="social-share-icon icon-weibo" href="http://service.weibo.com/share/share.php?url=www.baidu.com" target="_blank">微信</a>
+    </div>
+
+    <!--评论默认隐藏-->
+    <div class="pl">
+            <div class="pl_title">
+                <span style="line-height: 50px;font-weight: bold;float: left">18&nbsp;条&nbsp;评&nbsp;论</span>
+                <span class="glyphicon glyphicon-sort" style="line-height: 50px;float: right;color: #8590a6"> 切换为时间排序</span>
+            </div>
+
+        </a class="list" style="height: auto">
+            <div class="pl_body">
+                <div class="pl_body_title">
+                    <span><img src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+                    <span>王钢铁</span>
+                    <span style="float: right">1天前</span>
+                </div>
+                <div class="pl_body_con">1</div>
+                <div><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+            </div>
+
+            <!--回复-->
+            <div class="pl_body_huifu">
+                <div class="pl_body_title">
+                    <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+                    <span style="width: 30%;text-align: left">王钢铁&nbsp;&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;王刚大锤</span>
+                    <span style="float: right">1天前</span>
+                </div>
+                <div class="pl_body_con">aaaa
+                </div>
+                <div class="huifu"><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+            </div>
+            <!--回复-->
+            <div class="pl_body_huifu">
+                <div class="pl_body_title">
+                    <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+                    <span style="width: 30%;text-align: left">王钢铁&nbsp;&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;王刚大锤</span>
+                    <span style="float: right">1天前</span>
+                </div>
+                <div class="pl_body_con">aaaa
+                </div>
+                <div class="huifu"><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+            </div>
+            <!--<a href="#" style="padding-left: 50px" >查看全部18条回复</a>-->
+        <a style="padding-left: 50px" onclick="x_admin_show('查看对话','{:url("Qiantai/pinglun")}',550,750)"><i class="layui-icon"></i>查看全部18条回复</a>
+
+    </div>
+
+    </div>
+    {/foreach}
+</div>
+</body>
+<style>
+    /*评论*/
+    .huifu{
+        /*display: none;*/
+    }
+
+    /*回复*/
+    .pl_body_huifu{
+        width: 100%;
+        height: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid#f0f2f7;
+        padding-left: 50px;
+    }
+
+
+    /*评论倒叙部分头部*/
+   .pl_title{
+       width: 100%;
+       height: 50px;
+       border-bottom: 3px solid#f0f2f7;
+   }
+    /*每条消息主体*/
+    .pl_body{
+        width: 100%;
+        height: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid#f0f2f7;
+        /*border: 1px solid#f00;*/
+    }
+    /*每条消息内容*/
+    .pl_body_con{
+        width: 100%;
+        height: auto;
+        text-align: justify;
+        overflow: hidden;
+    }
+    /*每条消息头像时间*/
+    .pl_body_title{
+        width: 100%;
+        height: 40px;
+        /*border: 1px solid#f00;*/
+        line-height: 40px;
+    }
+
+    /*公共*/
+    *{margin: 0;padding: 0}
+    a{ color: #646464;}
+    a:hover{text-decoration: none}
+
+    /*身体*/
+    .main{width: 1000px;height:auto;background: #ffffff;margin: 15px auto;}
+    .title{
+        font-size: 20px;
+        font-weight:bold;
+        padding-top: 50px;
+        text-align: center;
+        width: 700px;
+        margin: 0 auto;
+    }
+    /*年月日*/
+    .nyr{
+        text-align: center;padding: 20px 0px 20px 0px;color: #8c96ab;
+    }
+    /*题目下划线*/
+    .xiahua{
+        border-bottom: 2px solid#f0f2f7;
+        width: 800px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    /*内容*/
+    .content{
+        width: 800px;
+        text-align: justify;
+        margin: 0 auto;
+        overflow:hidden;
+        border-bottom: 2px solid#f0f2f7;
+    }
+
+
+    /*底部操作功能栏*/
+    .bfun{
+        height: 50px;
+        width: 800px;
+        margin: 15px auto;
+        /*border: 1px solid#f00;*/
+    }
+
+    /*左边图片*/
+    .zuobian{
+        width: 190px;
+        height: 100px;
+        /*border: 1px solid#f00;*/
+        float: left;
+    }
+    /*右边内容*/
+    .youbian{
+        width:350px;
+        height: 100px;
+        /*border: 1px solid#f00;*/
+        float: left;
+        padding-left: 20px;
+        text-align: justify;
+        color: #646464;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+    }
+
+    /*底部功能模块*/
+    /*赞同*/
+    .zantong{
+        width: 100px;
+        height: 30px;
+        color: #0084ff;
+        background: rgba(0,132,255,.1);
+        line-height: 30px;
+        text-align: center;
+        float: left;
+        border-radius: 5px;
+    }
+    /*反对*/
+    .fandui{
+        width: 30px;
+        height: 30px;
+        color: #0084ff;
+        background: rgba(0,132,255,.1);
+        line-height: 30px;
+        text-align: center;
+        float: left;
+        margin-left: 5px;
+        border-radius: 3px;
+    }
+    /*评论*/
+    .pinglun{
+        width: 120px;
+        text-align: center;
+        height: 30px;
+        float: left;
+        line-height: 30px;
+        color: #8590a6;
+        font-size: 12px;
+    }
+    /*分享*/
+    .fenxiang{
+        width: 50px;
+        height: 30px;
+        float: left;
+        line-height: 30px;
+        color: #8590a6;
+        font-size: 12px;
+    }
+    /*隐藏分享部分*/
+    .fxs{display: none;width: 800px;margin: 0 auto;border: 2px solid#f0f2f7;padding: 10px}
+    /*隐藏评论部分*/
+    .pl{display: none;width: 800px;margin: 0 auto;border: 2px solid#f0f2f7;padding: 10px}
+</style>
+<script>
+    //分享显示隐藏
+    var show = 1;
+    function fxs() {
+        show++;
+        if (show%2==0){
+            $('.fxs').css('display','block');
+        }else{
+            $('.fxs').css('display','none');
+        }
+    }
+
+    //评论隐藏显示
+    function pl() {
+        show++;
+        if (show%2==0){
+            $('.pl').css('display','block');
+        }else{
+            $('.pl').css('display','none');
+        }
+    }
+
+
+    // <!--赞同-->
+    function zantong(val){
+        $.ajax({
+            url:"{:url('dianzan')}",
+            type:'post',
+            data:{id:val},
+            success:function (res){
+                $('.zantong').css({'background':'#0084ff','color':'#fff'});
+                $('.fandui').css({'background':'#e5f2ff','color':'#0084ff'});
+                var count = $('#font').text();
+                $('#font').text(Number(count)+1);
+            }
+        });
+    }
+
+    //反对
+    function fandui(val) {
+        $.ajax({
+            url:"{:url('fandui')}",
+            type:'post',
+            data:{id:val},
+            success:function (res){
+                $('.zantong').css({'background':'#e5f2ff','color':'#0084ff'});
+                $('.fandui').css({'background':'#0084ff','color':'#fff'});
+                var count = $('#font').text();
+                $('#font').text(Number(count)-1);
+            }
+        });
+    }
+</script>
+</html>

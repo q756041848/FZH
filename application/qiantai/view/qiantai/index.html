@@ -1,0 +1,74 @@
+{include file="qiantai/header"}
+    <div class="main">
+
+        {foreach name="$list" id="li"}
+        <div class="list" id="{$li.id}">
+            <div class="title"><a href="http://www.news.com/qiantai/Qiantai/con?id={$li.id}" style="color: #1a1a1a" title="{$li.title}">{$li.title}</a></div>
+            <div class="cen">
+                <div class="zuobian"><img src="https://pic1.zhimg.com/50/v2-6e1dddccfd2c85c1b1ec167cb1d29672_400x224.jpg" style="width: 100%;height: 100%;border-radius: 5px"></div>
+                <div class="youbian"><a href="http://www.news.com/qiantai/Qiantai/con?id={$li.id}" style="color: #1a1a1a;text-decoration: none">{$li.content|strip_tags}</a></div>
+
+            </div>
+            <div class="bfun">
+                <div class="zantong" onclick="zantong({$li.id})"><span class="glyphicon glyphicon-triangle-top"></span>赞同<span id="font">{$li.click}</span></div>&nbsp;&nbsp;
+                <div class="fandui" onclick="fandui({$li.id})"><span class="glyphicon glyphicon-triangle-bottom"></span></div>
+                <div class="pinglun" onclick="x_admin_show('全部评论','{:url("Qiantai/pingluns?id=22")}',550,750)"><span class="glyphicon glyphicon-edit"></span> {$li.comments}条评论</div>
+                <div class="fenxiang" onclick="fenxiang({$li.id})" data-toggle="tooltip" data-placement="bottom"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;分享</div>
+
+            <div id="fx{$li.id}" class="fx social-share share-component" data-sites="weibo,qq,qzone,tencent">
+                <a class="social-share-icon icon-qzone" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.news.com/qiantai/Qiantai/con?id={$li.id}" target="_blank">QQ空间</a>
+                <a class="social-share-icon icon-qq" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.news.com/qiantai/Qiantai/con?id={$li.id}" target="_blank">QQ好友</a>
+                <a class="social-share-icon fz" onclick="layer.msg('已复制')" data-clipboard-text="http://www.news.com/qiantai/Qiantai/con?id={$li.id}">复制链接</a>
+            </div>
+
+            </div>
+        </div>
+        {/foreach}
+    </div>
+</body>
+<script>
+    new ClipboardJS('.fz');
+
+    //<!--分享-->
+    var show = 1;
+    function fenxiang(val) {
+        show++;
+        if (show%2==0){
+            $('#fx'+val).css('display','block');
+        }else{
+            $('#fx'+val).css('display','none');
+        }
+    }
+
+
+    // <!--赞同-->
+    function zantong(val){
+           $.ajax({
+               url:"{:url('dianzan')}",
+               type:'post',
+               data:{id:val},
+               success:function (res){
+                   $('#'+val).find('.zantong').css({'background':'#0084ff','color':'#fff'});
+                   $('#'+val).find('.fandui').css({'background':'#e5f2ff','color':'#0084ff'});
+                   var count = $('#'+val).find('#font').text();
+                   $('#'+val).find('#font').text(Number(count)+1);
+               }
+           });
+    }
+
+    //反对
+    function fandui(val) {
+        $.ajax({
+            url:"{:url('fandui')}",
+            type:'post',
+            data:{id:val},
+            success:function (res){
+                $('#'+val).find('.zantong').css({'background':'#e5f2ff','color':'#0084ff'});
+                $('#'+val).find('.fandui').css({'background':'#0084ff','color':'#fff'});
+                var count = $('#'+val).find('#font').text();
+                $('#'+val).find('#font').text(Number(count)-1);
+            }
+        });
+    }
+</script>
+</html>

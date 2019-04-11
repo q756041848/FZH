@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__STATIC__/h/css/font.css">
+    <link rel="stylesheet" href="__STATIC__/h/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.3/skin/layer.css">
+      <script type="text/javascript" src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/h/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__STATIC__/h/js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+      <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <![endif]-->
+  </head>
+  
+  <body>
+  <!--评论默认隐藏-->
+  <div class="pl">
+      <div class="pl_title">
+          <span style="line-height: 50px;font-weight: bold;float: left">{$pl}&nbsp;条&nbsp;评&nbsp;论</span>
+          <span class="glyphicon glyphicon-sort" style="line-height: 50px;float: right;color: #8590a6" onclick="order()"> 切换时间排序</span>
+      </div>
+
+
+   {foreach name="$info" id="val"}
+  </a class="list" style="height: auto">
+
+  <div class="pl_body">
+      <div class="pl_body_title">
+          <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+          <span>{$val.userid}</span>
+          <span style="float: right">{$val.time|date='Y-m-d',###}</span>
+      </div>
+      <div class="pl_body_con">{$val.content}</div>
+      <div class="huifu">
+          <span class="glyphicon glyphicon-pencil"></span><span onclick="huifu({$val.id})" class="huifus{$val.id}">回复</span><br>
+          <div class="huifu{$val.id}" style="display: none"><input type="text" id="{$val.id}"><button onclick="fabu({$val.id},1)">发布</button></div>
+      </div>
+  </div>
+
+  <!--回复-->
+      {foreach name="$val.list" id="val2"}
+  <div class="pl_body_huifu">
+      <div class="pl_body_title">
+          <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png"></span>
+          <span style="width: 30%;text-align: left">{$val2.userid}{if condition="$val2.userpid"}&nbsp;&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;{$val2.userpid}{/if}</span>
+      </div>
+      <div class="pl_body_con">{$val2.content}</div>
+      <div class="huifu">
+          <span class="glyphicon glyphicon-pencil"></span><span onclick="huifu({$val2.id})" class="huifus{$val2.id}">回复</span><br>
+          <div class="huifu{$val2.id}" style="display: none"><input type="text" id="{$val2.id}"><button onclick="fabu({$val2.id},2)">发布</button></div>
+      </div>
+  </div>
+      {/foreach}
+
+  </div>
+  {/foreach}
+
+  <!--<form action="yiji" >-->
+  <div style="position: fixed;bottom: 0px;width: 100%;" class="form-inline">
+      <div class="auto">
+        <input type="text" name="content" placeholder="来说一句" class="form-control" style="float: left;width: 300px"><button class="btn btn-default" style="float: left" onclick="yiji({$id})">发布</button>
+      </div>
+  </div>
+  <!--</form>-->
+
+  </body>
+  <style>
+      /*评论*/
+      .huifu{
+          /*display: none;*/
+      }
+      /*一级回复*/
+      .auto{
+          width: 400px;
+          height: 50px;
+          /*border: 1px solid;*/
+          margin: 0 auto;
+      }
+
+      /*回复*/
+      .pl_body_huifu{
+          width: 100%;
+          height: auto;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-bottom: 2px solid#f0f2f7;
+          padding-left: 90px;
+      }
+
+
+      /*评论倒叙部分头部*/
+      .pl_title{
+          width: 80%;
+          margin: 0 auto;
+          height: 50px;
+          border-bottom: 3px solid#f0f2f7;
+      }
+      /*每条消息主体*/
+      .pl_body{
+          width: 80%;
+          margin: 0 auto;
+          height: auto;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-bottom: 2px solid#f0f2f7;
+          /*border: 1px solid#f00;*/
+      }
+      /*每条消息内容*/
+      .pl_body_con{
+          width: 100%;
+          height: auto;
+          text-align: justify;
+          overflow: hidden;
+      }
+      /*每条消息头像时间*/
+      .pl_body_title{
+          width: 100%;
+          height: 40px;
+          /*border: 1px solid#f00;*/
+          line-height: 40px;
+      }
+
+      /*公共*/
+      *{margin: 0;padding: 0}
+      a{ color: #646464;}
+      a:hover{text-decoration: none}
+  </style>
+  <script>
+      var h=1;
+      var o=0;
+      function huifu(val) {
+          h++;
+          if (h%2==0){
+              $('.huifu'+val).css('display','block');
+              $('.huifus'+val).text('取消回复');
+          }else {
+              $('.huifu'+val).css('display','none');
+              $('.huifus'+val).text('回复');
+          }
+
+      }
+
+      function fabu(val,val2) {
+          // alert($('#'+val).val());
+          //   点击回复的时候获取到当前id，发表评论时将当前session id写入userid 将当前id所查询的user写入被评论userpid
+          //   在写一级回复的时候要传入new新闻id,二级以后直接拿它父级查询的id插入就好了
+          var cont = $('#'+val).val();
+          $.ajax({
+              'url':'{:url("huifu")}',
+              'type':'post',
+              'data':{id:val,cont:cont,status:val2},//status一级是1，二级是2
+              'success':function(result){
+                      // $('.huifu'+val).css('display','none');
+                      // $('.huifus'+val).text('回复');
+                        window.location.reload();
+              }
+          });
+      }
+
+    function yiji(id) {
+        var con = $(" input[ name='content' ] ").val();
+        $.ajax({
+            'url':'{:url("yiji")}',
+            'type':'post',
+            'data':{id:id,cont:con},//status一级是1，二级是2
+            'success':function(result){
+                // $('.huifu'+val).css('display','none');
+                // $('.huifus'+val).text('回复');
+                window.location.reload();
+            }
+        });
+    }
+  //  切换时间排序
+      function order() {
+          o++;
+          var order;
+          if (o%2==0){
+              order='asc';
+          }else{
+              order='desc';
+          }
+          $.ajax({
+              'url':'{:url("huifu")}',
+              'type':'post',
+              'data':{order:order},
+              'success':function(result){
+                  // $('.huifu'+val).css('display','none');
+                  // $('.huifus'+val).text('回复');
+                  window.location.reload();
+              }
+          });
+      }
+  </script>
+</html>

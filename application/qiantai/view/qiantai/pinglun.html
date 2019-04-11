@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__STATIC__/h/css/font.css">
+    <link rel="stylesheet" href="__STATIC__/h/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.3/skin/layer.css">
+      <script type="text/javascript" src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/h/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__STATIC__/h/js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+  </head>
+  
+  <body>
+  <!--评论默认隐藏-->
+  <div class="pl">
+      <div class="pl_title">
+          <span style="line-height: 50px;font-weight: bold;float: left">18&nbsp;条&nbsp;评&nbsp;论</span>
+          <span class="glyphicon glyphicon-sort" style="line-height: 50px;float: right;color: #8590a6"> 切换为时间排序</span>
+      </div>
+
+
+      </a class="list" style="height: auto">
+      <div class="pl_body">
+          <div class="pl_body_title">
+              <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+              <span>王钢铁</span>
+              <span style="float: right">1天前</span>
+          </div>
+          <div class="pl_body_con">
+          </div>
+          <div><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+      </div>
+
+      <!--回复-->
+      <div class="pl_body_huifu">
+          <div class="pl_body_title">
+              <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+              <span style="width: 30%;text-align: left">王钢铁&nbsp;&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;王刚大锤</span>
+              <span style="float: right">1天前</span>
+          </div>
+          <div class="pl_body_con">aaaa
+          </div>
+          <div class="huifu"><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+      </div>
+      <!--回复-->
+      <div class="pl_body_huifu">
+          <div class="pl_body_title">
+              <span><img style="width:40px;height: 40px " src="https://cdn.duitang.com/uploads/item/201411/09/20141109222431_58P5J.thumb.700_0.png" alt=""></span>
+              <span style="width: 30%;text-align: left">王钢铁&nbsp;&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;&nbsp;王刚大锤</span>
+              <span style="float: right">1天前</span>
+          </div>
+          <div class="pl_body_con">aaaa
+          </div>
+          <div class="huifu"><span class="glyphicon glyphicon-pencil"></span><span>回复</span></div>
+      </div>
+  </div>
+
+  </div>
+  </body>
+  <style>
+      /*评论*/
+      .huifu{
+          /*display: none;*/
+      }
+
+      /*回复*/
+      .pl_body_huifu{
+          width: 100%;
+          height: auto;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-bottom: 2px solid#f0f2f7;
+          padding-left: 50px;
+      }
+
+
+      /*评论倒叙部分头部*/
+      .pl_title{
+          width: 80%;
+          margin: 0 auto;
+          height: 50px;
+          border-bottom: 3px solid#f0f2f7;
+      }
+      /*每条消息主体*/
+      .pl_body{
+          width: 80%;
+          margin: 0 auto;
+          height: auto;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-bottom: 2px solid#f0f2f7;
+          /*border: 1px solid#f00;*/
+      }
+      /*每条消息内容*/
+      .pl_body_con{
+          width: 100%;
+          height: auto;
+          text-align: justify;
+          overflow: hidden;
+      }
+      /*每条消息头像时间*/
+      .pl_body_title{
+          width: 100%;
+          height: 40px;
+          /*border: 1px solid#f00;*/
+          line-height: 40px;
+      }
+
+      /*公共*/
+      *{margin: 0;padding: 0}
+      a{ color: #646464;}
+      a:hover{text-decoration: none}
+  </style>
+</html>

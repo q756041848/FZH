@@ -1,0 +1,124 @@
+{include file="common/header"}
+
+<body class="layui-anim layui-anim-up">
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" id="sel" method="post">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <input type="text" name="text"  placeholder="搜索文字标题" autocomplete="off" class="layui-input">
+            <button class="layui-btn" onclick="sel()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="x_admin_show('添加新闻','{:url("News/add")}',800,600)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">{$count}条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>文章ID</th>
+            <th>所属分类</th>
+            <th>文章标题</th>
+            <th class="con">文章内容</th>
+            <th>文章作者</th>
+            <th>发布时间</th>
+            <th>点击量</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+        {foreach name="$list" id="li"}
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$li.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$li.id}</td>
+            <td>{$li.typename}</td>
+            <td>{$li.title}</td>
+            <td class="con"><b class="line-limit-length">内容</b></td>
+            <td>{$li.author}</td>
+            <td>{$li.puttime|date='Y-m-d',###}</td>
+            <td>{$li.click}</td>
+            <td>
+                <a class="layui-btn layui-btn-danger" href="#" onclick="member_del(this,{$li.id})">删除</a>
+                <button class="layui-btn" onclick="x_admin_show('编辑','upd?id={$li.id}',800,600)">修改</button>
+            </td>
+        <tr>
+            {/foreach}
+        </tr>
+        <tr>
+            <td colspan="9" style="text-align: center">{$page}</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+<script>
+
+
+    /*用户-搜索*/
+    function sel() {
+        var form = $('#sel').serializeArray();
+        $.ajax({
+            url:"{:url('index')}",
+            type:'post',
+            data:form,
+            success:function (res){
+                console.log(res);
+            }
+        });
+    }
+
+    /*用户-删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url:"{:url('del')}",
+                type:'post',
+//               data:data.field,
+                data:{ids:id},
+                success:function (res){
+                    if(res.code=='1'){
+                        //发异步删除数据
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+
+    //批量删除
+    function delAll (argument) {
+        var data1 = tableCheck.getData();
+        layer.confirm('确认要删除吗？'+data1,function(index){
+            $.ajax({
+                url:"{:url('del')}",
+                type:'post',
+                data:{ids:data1.toString()},
+                success:function (res){
+                    layer.msg('删除成功', {icon: 1});
+                    $(".layui-form-checked").not('.header').parents('tr').remove();
+                }
+            })
+        });
+    }
+</script>
+</body>
+
+</html>
